@@ -1,8 +1,3 @@
-
-find / -name tej.txt
---Used to find the particular file globally on all file directories present in linux but its shows only file visibilty not entire path.
-lolcate tej.txt
---It will show full path of the searching file 
 ======================File System Navigation Commands=============================
 Cd /root 
 --It stands for Change Directory it helps to go to given target directory.
@@ -30,6 +25,10 @@ Creating files
  1) mkdir
 --Used for creating directory
  =============================Finding Files and Directories==========================
- 1)Find 
+ 1)find / -name tej.txt
+--Used to find the particular file globally on all file directories present in linux but its shows only file visibilty not entire path.
+2) locate tej.txt
+--It will show full path of the searching file but updatedb should be up to date timely
+ =============================SoftLinks & Hardlinks , Inode============================
  
 
