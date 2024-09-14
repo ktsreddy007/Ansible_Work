@@ -34,6 +34,10 @@ Creating files
  1)chmod
  It is used to change the permissions levels for a file or directory
  Syntax - chmod 600 filename
-  
+ ===============================Ownership===============================================
+ 1)chown and chgrp
+•chown changes the ownership of a file
+•chgrp changes the group ownership of a file
+
 
 
