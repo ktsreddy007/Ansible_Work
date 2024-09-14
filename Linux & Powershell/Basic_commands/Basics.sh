@@ -30,5 +30,10 @@ Creating files
 2) locate tej.txt
 --It will show full path of the searching file but updatedb should be up to date timely
  =============================SoftLinks & Hardlinks , Inode============================
- 
+ =============================Permissions==============================================
+ 1)chmod
+ It is used to change the permissions levels for a file or directory
+ Syntax - chmod 600 filename
+  
+
 
