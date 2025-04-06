@@ -119,7 +119,3 @@ Step 5 - Extending Logical volume
          lvextend -L +1000M /dev/vgtejas/TejApp2-lv
 Step 6 - Making the new space available to file system
          resize2fs /dev/vgtejas/TejApp2-lv 2000M
-
- Hello team        
-
-
