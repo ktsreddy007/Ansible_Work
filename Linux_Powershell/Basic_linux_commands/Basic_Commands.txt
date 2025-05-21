@@ -46,8 +46,6 @@ pwd > findpath
 •E.g. ls la >> listings
        echo “Hello World” >>
        findpath
-
-
 ===========LVM==============
 Physical hardisk is must attached       
        fdisk -l
@@ -119,3 +117,67 @@ Step 5 - Extending Logical volume
          lvextend -L +1000M /dev/vgtejas/TejApp2-lv
 Step 6 - Making the new space available to file system
          resize2fs /dev/vgtejas/TejApp2-lv 2000M
+===================================================================================
+Loops
+1) If Loop (C Style)
+Syntax :
+for (( INITIALIZATION; CONDITION; INCREMENT ))
+do
+  # commands
+done
+----------------------
+Example :
+for (( i=1; i<=5; i++ ))
+do
+  echo "Number: $i"
+done
+2) If Loop (List Style)
+Syntax :
+for ITEM in LIST
+do
+  # commands
+done
+--------------------------
+Example :
+for fruit in apple banana cherry
+do
+  echo "Fruit: $fruit"
+done
+3) While Loop
+Syntax :
+while [ CONDITION ]
+do
+  # commands
+done
+Example :
+count=1
+while [ $count -le 5 ]
+do
+  echo "Count is $count"
+  ((count++))
+done
+4) Until Loop
+Syntax :
+until [ CONDITION ]
+do
+  # commands
+done
+Example :
+count=1
+until [ $count -gt 5 ]
+do
+  echo "Count is $count"
+  ((count++))
+done
+5) Infinite Loop
+Syntax :
+while true
+do
+  # commands
+done
+Example :
+while true
+do
+  echo "Running..."
+  sleep 1
+done
