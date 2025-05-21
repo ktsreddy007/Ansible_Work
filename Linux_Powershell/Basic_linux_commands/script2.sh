@@ -2,6 +2,7 @@
 #Code about comments & variables.
 # comments are given with # 
 echo "Hello World" #this a type of comment"
+############################################################
 #In Shell we have 2 type of varibales - System &  Userdefined
 echo $BASH
 echo $BASH_VERSION
