@@ -119,7 +119,7 @@ Step 6 - Making the new space available to file system
          resize2fs /dev/vgtejas/TejApp2-lv 2000M
 ===================================================================================
 Loops
-1) If Loop (C Style)
+1) For Loop (C Style)
 Syntax :
 for (( INITIALIZATION; CONDITION; INCREMENT ))
 do
@@ -131,7 +131,7 @@ for (( i=1; i<=5; i++ ))
 do
   echo "Number: $i"
 done
-2) If Loop (List Style)
+2) For Loop (List Style)
 Syntax :
 for ITEM in LIST
 do
