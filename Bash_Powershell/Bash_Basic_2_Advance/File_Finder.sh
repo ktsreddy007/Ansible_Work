@@ -24,14 +24,26 @@ fi
 # Find unique file extensions and copy one example of each
 echo "Copying one file of each unique format from '$SOURCE_FOLDER' to '$DEST_FOLDER'..."
 
-find "$SOURCE_FOLDER" -maxdepth 1 -type f | \
-    sed -n 's/.*\.\([a-zA-Z0-9]\+\)$/\1/p' | \
-    sort | uniq | while read ext; do
-        file_to_copy=$(find "$SOURCE_FOLDER" -maxdepth 1 -type f -name "*.$ext" | head -n 1)
-        if [ -n "$file_to_copy" ]; then
-            cp "$file_to_copy" "$DEST_FOLDER"
-            echo "Copied: $(basename "$file_to_copy")"
-        fi
-    done
+# Find all files, extract extensions, and process them
+find "$SOURCE_FOLDER" -maxdepth 1 -type f | while read file; do
+    # Extract the extension, handle multi-part extensions
+    extension="${file##*.}"
+    base_name="${file%.*}"
+    
+    # For cases like .tar.gz, .tar.bz2, or similar, consider the full extension
+    if [[ "$base_name" =~ \.tar$ || "$base_name" =~ \.gz$ || "$base_name" =~ \.bz2$ ]]; then
+        extension="${file##*.}"
+    fi
+
+    # Check if the extension is unique (avoid duplicates)
+    if ! echo "$seen_extensions" | grep -q "\b$extension\b"; then
+        # Add the extension to the seen list
+        seen_extensions="$seen_extensions$extension "
+
+        # Copy the first file with that extension
+        cp "$file" "$DEST_FOLDER"
+        echo "Copied: $(basename "$file")"
+    fi
+done
 
 echo "Done."
