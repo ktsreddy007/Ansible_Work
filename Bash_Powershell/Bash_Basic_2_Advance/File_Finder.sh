@@ -29,7 +29,7 @@ find "$SOURCE_FOLDER" -maxdepth 1 -type f | while read file; do
     # Extract the extension, handle multi-part extensions
     extension="${file##*.}"
     base_name="${file%.*}"
-    
+
     # For cases like .tar.gz, .tar.bz2, or similar, consider the full extension
     if [[ "$base_name" =~ \.tar$ || "$base_name" =~ \.gz$ || "$base_name" =~ \.bz2$ ]]; then
         extension="${file##*.}"
