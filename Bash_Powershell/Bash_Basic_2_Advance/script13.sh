@@ -16,14 +16,14 @@ if [ ! -d "$SOURCE_FOLDER" ]; then
 fi
 #Check if the destination folder exists, if not create it
 if [ ! -e "$DEST_FOLDER" ]; then
-  echo "Directory '$DEST_FOLDER' already exists."	
-  else
   echo "Directory does not exist. Creating $DIR..."
   # Create the directory
   mkdir -p "$DEST_FOLDER"
   # Set permissions: rwx for owner, group, and others
   chmod 777 "$DEST_FOLDER"
   echo "Directory created and permissions set to 777."
+  else
+  echo "Directory '$DEST_FOLDER' already exists."	
 fi
 
 #Checking the Count of the files in the Source folder
@@ -35,13 +35,3 @@ echo "Number of .tar files: $tar_count"
 echo "Number of .txt files: $txt_count"
 echo "Total number of files: $(($tar_count + $txt_count))"
 #Loop through all files in the source  folder
-#for file in "$SOURCE_FOLDER" /*;
-#	do
-		#check if the file is nto a zip file
-#		if [[ ! "$file" =~ \.tar$ ]]; then
-		#if its not a zip file, create a zip file with the same name
-    	#	tar -cf "$file.tar" "$file" && rm "$file"
-		#move the newly created tar file to the destination file
-#		mv "$file.tar" "$DEST_FOLDER"
-#fi
-#one

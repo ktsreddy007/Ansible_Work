@@ -181,3 +181,6 @@ do
   echo "Running..."
   sleep 1
 done
+=========================================================
+#Used to give access for shell files 
+find . -type f -name "*.sh" -exec chmod +x {} \;
