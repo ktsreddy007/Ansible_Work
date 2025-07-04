@@ -1,2 +1,7 @@
 #command to convert yml file to json via python
 python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin, Loader=yaml.FullLoader), sys.stdout, indent=4)' < hosts.yml > hosts.json
+
+#Ansible command to know the hosts based on our hosts file code
+ansible all -i /home/ansible/AnsiPro/inventory/hosts.yml --list-hosts
+#or
+ansible all --list-hosts
