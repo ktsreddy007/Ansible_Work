@@ -1,3 +1,9 @@
+#To execute yamllint we need to have it installed
+sudo apt install yamllint
+
+#Yamllint command to validate the YAML file syntax
+yamllint file.yml
+
 #command to convert yml file to json via python
 python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin, Loader=yaml.FullLoader), sys.stdout, indent=4)' < hosts.yml > hosts.json
 
@@ -5,3 +11,8 @@ python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin, Loader=yaml.F
 ansible all -i /home/ansible/AnsiPro/inventory/hosts.yml --list-hosts
 #or
 ansible all --list-hosts
+
+#Ansible command to ping the slaves of ansible with group name called linux and all
+ansible  all -m ping -o
+#or
+ansible  linux -m ping -o
