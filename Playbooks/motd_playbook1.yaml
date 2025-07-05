@@ -1,13 +1,14 @@
-#Below is playbook shows to use Copy module with default gather facts so that we deploy a message on Centos 1
 ---
 - hosts: centos1
   remote_user: root
+  gather_facts: false
   tasks:
    - name: verifying the task
      command: whoami
-
    - name: Configure a MOTD (message of the day)
      copy:
-      src: ../files/centos_motd
+      content: Hi Rama
       dest: /etc/motd
 ...
+
+# Above is playbook shows to use Copy module (content parameter)  with no default gather facts so that we deploy a message on Centos 1
