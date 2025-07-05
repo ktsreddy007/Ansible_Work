@@ -1,12 +1,22 @@
 #To execute yamllint we need to have it installed
 sudo apt install yamllint
-
 #Yamllint command to validate the YAML file syntax
 yamllint file.yml
-
 #command to convert yml file to json via python
 python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin, Loader=yaml.FullLoader), sys.stdout, indent=4)' < hosts.yml > hosts.json
-
+#Ansible command to check ansible verison and config data
+ansible --version
+  #Output to be as below
+ansible@ubuntu-c:~/AnsiPro$ ansible --version
+ansible [core 2.17.4]
+  config file = /home/ansible/AnsiPro/ansible.cfg
+  configured module search path = ['/home/ansible/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.10/dist-packages/ansible
+  ansible collection location = /home/ansible/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/local/bin/ansible
+  python version = 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0] (/usr/bin/python3)
+  jinja version = 3.1.4
+  libyaml = True
 #Ansible command to know the hosts based on our hosts file code
 ansible all -i /home/ansible/AnsiPro/inventory/hosts.yml --list-hosts
 #or
