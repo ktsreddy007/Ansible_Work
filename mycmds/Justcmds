@@ -16,3 +16,6 @@ ansible all --list-hosts
 ansible  all -m ping -o
 #or
 ansible  linux -m ping -o
+
+#Ansible command to excute the playbook with particular invetory and single host named centos1
+ansible-playbook -i /home/ansible/AnsiPro/inventory/hosts.yml motd_playbook.yaml
