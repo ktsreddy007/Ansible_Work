@@ -1,3 +1,4 @@
+#Below playbook is for demonstrating the variables value while running the playbook with cmd - ansible-playbook plabook.yaml -e 'motd="THis is Teja\n"'
 ---
 - hosts: centos1
   remote_user: root
@@ -13,5 +14,3 @@
         content: "{{ motd }}"
         dest: /etc/motd
 ...
-
-# Above is playbook shows to use Copy module (content parameter)  with no default gather facts so that we deploy a message on Centos 1

@@ -33,3 +33,9 @@ ansible  linux -m ping -o
 
 #Ansible command to excute the playbook with particular invetory and single host named centos1
 ansible-playbook -i /home/ansible/AnsiPro/inventory/hosts.yml motd_playbook.yaml
+
+#Ansible command to pass the varible value when executing the plabook
+ansible-playbook  xtra-vars.yaml -e 'motd="This is teja\n"'
+
+#Ansible command to know the time taken to run the plabook
+time ansible-playbook  motd_playbook.yaml
