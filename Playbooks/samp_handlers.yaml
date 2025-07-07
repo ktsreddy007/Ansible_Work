@@ -1,16 +1,17 @@
+# The below code depicts the udage of handlers 
 ---
 - hosts: centos1
   remote_user: root
   gather_facts: false
   vars:
     motd: |
-       Hi Teja
+       Hi Tejassss
   tasks:
     - name: verifying the task
       command: whoami
     - name: Configure a MOTD (message of the day)
       copy:
-        src: ../files/centos_motd
+        content: "{{ motd }}"
         dest: /etc/motd
       notify: motd_handi
   handlers:
