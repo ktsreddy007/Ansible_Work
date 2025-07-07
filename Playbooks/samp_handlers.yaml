@@ -1,0 +1,20 @@
+---
+- hosts: centos1
+  remote_user: root
+  gather_facts: false
+  vars:
+    motd: |
+       Hi Teja
+  tasks:
+    - name: verifying the task
+      command: whoami
+    - name: Configure a MOTD (message of the day)
+      copy:
+        src: ../files/centos_motd
+        dest: /etc/motd
+      notify: motd_handi
+  handlers:
+   - name: motd_handi
+     debug:
+      msg: motd msg changed
+...
