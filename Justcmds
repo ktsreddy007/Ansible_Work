@@ -42,3 +42,11 @@ time ansible-playbook  motd_playbook.yaml
 
 #Ansible command to know the hostvars of particular slave & particular parameter
 ansible centos1 -m debug -a "var=ansible_hostname"
+
+#Ansible command to know the particular network facts data related to remotehost machine
+ansible centos1 -m setup -a 'gather_subsets=network' | more
+
+#Ansible commmand to get & restrict for Network related data and other facts not to display using !min and !all 
+ansible centos1 -m setup -a 'gather_subsets=!all,!min,network' | more 
+
+
