@@ -8,6 +8,6 @@
 
    - name: Configure a MOTD (message of the day)
      copy:
-      src: ../files/centos_motd
+      src: ../roles/files/centos_motd
       dest: /etc/motd
 ...
