@@ -1,0 +1,92 @@
+#Below code tell us different types of ways we use varibales in ansible
+---
+#First Play with simple variable declartion using key-values
+- name: 1st Variable type
+  hosts: centos1
+  gather_facts: False
+  vars:
+    example_key: example value
+  tasks:
+    - name: Test dictionary key value
+      debug:
+        msg: "{{ example_key }}"
+#Second Play
+- name: 2nd Variable type
+  hosts: centos1
+  gather_facts: False
+  vars:
+    my_dict:
+      my_dict_key: This is a dictionary value
+  tasks:
+    - name: Test named dictionary dictionary
+      debug:
+        msg: "{{ my_dict }}"
+    - name: Test named dictionary dictionary key value with dictionary dot notation
+      debug:
+        msg: "{{ my_dict.my_dict_key }}"
+    - name: Test named dictionary dictionary key value with python brackets notation
+      debug:
+        msg: "{{ my_dict['my_dict_key'] }}"
+#Third Play
+- name: 3rd Variable type
+  hosts: centos1
+  gather_facts: False
+  vars:
+    inline_dict:
+      {inline_dict_key: This is an inline dictionary value}
+  tasks:
+    - name: Test named inline dictionary dictionary
+      debug:
+        msg: "{{ inline_dict }}"
+    - name: Test named inline dictionary dictionary key value with dictionary dot notation
+      debug:
+        msg: "{{ inline_dict.inline_dict_key }}"
+    - name: Test named inline dictionary dictionary key value with brackets notation
+      debug:
+        msg: "{{ inline_dict['inline_dict_key'] }}"
+#Fourth Play
+- name: 4th Variable type
+  hosts: centos1
+  gather_facts: False
+  vars:
+    named_list:
+      - item1
+      - item2
+      - item3
+      - item4
+  tasks:
+    - name: Test named list
+      debug:
+        msg: "{{ named_list }}"
+    - name: Test named list first item dot notation
+      debug:
+        msg: "{{ named_list.0 }}"
+    - name: Test named list first item brackets notation
+      debug:
+        msg: "{{ named_list[0] }}"
+#Fifth Play
+- name: 5th Variable type
+  hosts: centos1
+  gather_facts: False
+  vars:
+    inline_named_list:
+      [ item1, item2, item3, item4 ]
+  tasks:
+    - name: Test inline named list
+      debug:
+        msg: "{{ inline_named_list }}"
+    - name: Test inline named list first item dot notation
+      debug:
+        msg: "{{ inline_named_list.0 }}"
+    - name: Test inline named list first item brackets notation
+      debug:
+        msg: "{{ inline_named_list[0] }}"
+#Sixth Play
+- name: 6th variable type
+  hosts: linux
+  gather_facts: True
+  tasks:
+    - name: Test groupvars
+      debug:
+        msg: "{{ ansible_user }}"
+...

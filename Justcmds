@@ -39,3 +39,6 @@ ansible-playbook  xtra-vars.yaml -e 'motd="This is teja\n"'
 
 #Ansible command to know the time taken to run the plabook
 time ansible-playbook  motd_playbook.yaml
+
+#Ansible command to know the hostvars of particular slave & particular parameter
+ansible centos1 -m debug -a "var=ansible_hostname"
