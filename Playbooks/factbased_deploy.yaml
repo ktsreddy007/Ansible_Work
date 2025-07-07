@@ -1,0 +1,25 @@
+#Below code is for implemeting motd message based on distribution we get via facts of os
+---
+- hosts: linux
+  gather_facts: true
+  vars:
+    motd_centos: "Welcome to Centos Linux Machine\n"
+    motd_ubuntu: "Welcome to Ubuntu Linux Machine\n"
+  tasks:
+    - name: Configuring a Centos MOTD (message of the day)
+      copy:
+        content: "{{ motd_centos }}"
+        dest: /etc/motd
+      notify: MOTD Changed
+      when: ansible_distribution == "CentOS"
+    - name: Configuring a Ubuntu MOTD (message of the day)
+      copy:
+        content: "{{ motd_ubuntu }}"
+        dest: /etc/motd
+      notify: MOTD Changed
+      when: ansible_distribution == "Ubuntu"
+  handlers:
+      - name: MOTD Changed
+        debug:
+          msg: The MOTD was changed
+...
