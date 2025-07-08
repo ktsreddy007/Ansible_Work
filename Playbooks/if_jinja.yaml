@@ -1,0 +1,14 @@
+# Below code is for Jinja template with if loop
+---
+- hosts: all
+  tasks:
+  - name: Ansible Jinja2 if
+    debug:
+      msg: >
+       --== Ansible Jinja2 if statement ==--
+
+       {# If the hostname is centos1, include a message -#}
+       {% if ansible_hostname == "centos1" -%}
+          This is centos 1 machine
+       {% endif %}
+...
