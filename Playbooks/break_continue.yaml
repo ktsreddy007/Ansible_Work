@@ -1,0 +1,27 @@
+# Below ansible code to know break and continue of Jinja2 template language.
+---
+- hosts: all
+  tasks:
+   - name: Ansible Jinja2 for range, reverese (simulate while grater 5)
+     debug:
+      msg: >
+          --== Ansible Jinja break ==--
+
+          {% for entry in range(10, 0, -1) -%}
+            {% if entry == 5 -%}
+              {% break %}
+            {% endif -%}
+            {{ entry }}
+          {% endfor %}
+   - name: Ansible Continue
+     debug:
+      msg: >
+          --== Ansible Jinja Continue ==--
+
+          {% for entry in range(10, 0, -1) -%}
+            {% if entry is odd -%}
+              {% continue %}
+            {% endif -%}
+            {{ entry }}
+          {% endfor %} 
+...
