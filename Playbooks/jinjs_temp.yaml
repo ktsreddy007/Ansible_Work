@@ -1,0 +1,10 @@
+---
+- name: Fetch Hostname and Render Configuration on Slave Machine
+  hosts: centos1
+  gather_facts: yes  # This will gather facts about the machine (including hostname)
+  tasks:
+    - name: Create a configuration file using Jinja2 template
+      template:
+        src: /home/ansible/AnsiPro/roles/templates/hostname_template.j2   # Path to your Jinja2 template
+        dest: /etc/hostname_config.conf # Path where the rendered file will be placed
+...
