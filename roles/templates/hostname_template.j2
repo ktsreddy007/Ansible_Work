@@ -1,0 +1,12 @@
+# Configuration file for the slave machine
+
+hostname = {{ ansible_hostname }}
+ip_address = {{ ansible_default_ipv4.address }}
+os = {{ ansible_distribution }} {{ ansible_distribution_version }}
+
+# Additional info could be added dynamically based on facts.
+{% if ansible_memtotal_mb > 4096 %}
+  memory = High
+{% else %}
+  memory = Low
+{% endif %}
