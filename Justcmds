@@ -49,4 +49,61 @@ ansible centos1 -m setup -a 'gather_subsets=network' | more
 #Ansible commmand to get & restrict for Network related data and other facts not to display using !min and !all 
 ansible centos1 -m setup -a 'gather_subsets=!all,!min,network' | more 
 
+#Ansible Jinja2 template language control structures syntax
+1) if Statement Syntax
 
+{% if condition %}
+  # Do something if the condition is true
+{% elif another_condition %}
+  # Do something if the another_condition is true
+{% else %}
+  # Do something if the condition is false
+{% endif %}
+
+Example :
+{% if ansible_facts['distribution'] == 'Ubuntu' %}
+  apt:
+    name: nginx
+    state: present
+{% else %}
+  yum:
+    name: nginx
+    state: present
+{% endif %}
+
+2) Loops (for loop Syntax)
+ 
+{% for item in items %}
+  # Do something for each item in the items list
+{% endfor %}
+
+Example:
+{% for user in users %}
+  name: "{{ user }}"
+  shell: /bin/bash
+{% endfor %}
+
+2a) for loop syntax with loop.index and loop.length
+
+{% for item in items %}
+  Item {{ loop.index }} of {{ loop.length }}: {{ item }}
+{% endfor %}
+
+3) Variable Lookup and Default Values
+
+Default filter
+{{ variable | default('default_value') }}
+
+Example - {{ some_variable | default('not set') }}
+
+Defined test
+
+{% if some_variable is defined %}
+  # Variable exists
+{% else %}
+  # Variable does not exist
+{% endif %}
+
+4) other template files including
+
+{% include 'file_name.j2' %}
