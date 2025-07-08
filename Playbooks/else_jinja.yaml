@@ -1,0 +1,17 @@
+# Below code is for Jinja template with if_elif_else loop
+---
+- hosts: all
+  tasks:
+  - name: Ansible Jinja2 if
+    debug:
+      msg: >
+       --== Ansible Jinja2 if statement ==--
+
+       {% if ansible_hostname == "centos1" -%}
+          This is centos 1 machine
+       {% elif ansible_hostname == "ubuntu1" -%}
+           This is ubuntu 1 machine
+       {% else -%}
+          This is {{ ansible_hostname }}
+       {% endif %}
+...
