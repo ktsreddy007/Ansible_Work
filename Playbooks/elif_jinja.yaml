@@ -4,6 +4,7 @@
   tasks:
   - name: Ansible Jinja2 elif
     debug:
+      msg: "DB password is {{ db_password }}"
       msg: >
        --== Ansible Jinja2 elif statement ==--
 
