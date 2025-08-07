@@ -1,7 +1,7 @@
 #Below code tell us different types of ways we use varibales in ansible
 ---
 #First Play with simple variable declartion using key-values
-- name: 1st Variable type
+- name: 1st Variable String type
   hosts: centos1
   gather_facts: False
   vars:
@@ -11,7 +11,7 @@
       debug:
         msg: "{{ example_key }}"
 #Second Play
-- name: 2nd Variable type
+- name: 2nd Variable Dictionary type
   hosts: centos1
   gather_facts: False
   vars:
@@ -28,24 +28,24 @@
       debug:
         msg: "{{ my_dict['my_dict_key'] }}"
 #Third Play
-- name: 3rd Variable type
+- name: 3rd Variable type inline dictionary
   hosts: centos1
   gather_facts: False
   vars:
     inline_dict:
-      {inline_dict_key: This is an inline dictionary value}
+      {inline_dict_key: This is an inline dictionary value , inline_bar: Hi THis is teja}
   tasks:
     - name: Test named inline dictionary dictionary
       debug:
         msg: "{{ inline_dict }}"
     - name: Test named inline dictionary dictionary key value with dictionary dot notation
       debug:
-        msg: "{{ inline_dict.inline_dict_key }}"
+        msg: "{{ inline_dict.inline_dict_key , inline_dict.inline_bar }}"
     - name: Test named inline dictionary dictionary key value with brackets notation
       debug:
         msg: "{{ inline_dict['inline_dict_key'] }}"
 #Fourth Play
-- name: 4th Variable type
+- name: 4th Variable type is list
   hosts: centos1
   gather_facts: False
   vars:
@@ -65,7 +65,7 @@
       debug:
         msg: "{{ named_list[0] }}"
 #Fifth Play
-- name: 5th Variable type
+- name: 5th Variable type inline list
   hosts: centos1
   gather_facts: False
   vars:
@@ -81,10 +81,10 @@
     - name: Test inline named list first item brackets notation
       debug:
         msg: "{{ inline_named_list[0] }}"
-#Sixth Play
-- name: 6th variable type
+#Sixth Play is about magic variable
+- name: 6th variable is magic variable type
   hosts: linux
-  gather_facts: True
+  gather_facts: False
   tasks:
     - name: Test groupvars
       debug:
