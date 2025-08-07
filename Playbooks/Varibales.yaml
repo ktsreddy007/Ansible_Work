@@ -89,4 +89,16 @@
     - name: Test groupvars
       debug:
         msg: "{{ ansible_user }}"
+#Seventh Play about boolean variable type
+- name: 7th Variable type (Boolean)
+  hosts: centos1
+  gather_facts: False
+  vars:
+    #Boolean varriable
+    is_enabled: true
+  tasks:
+    - name: Testing boolean variable
+      debug:
+         msg: "variable is true"
+      when: is_enabled
 ...
