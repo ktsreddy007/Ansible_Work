@@ -107,3 +107,6 @@ Defined test
 4) other template files including
 
 {% include 'file_name.j2' %}
+
+#To run the playbook along with Ansible vault password
+ansible-playbook playbook.yml --ask-vault-pass
