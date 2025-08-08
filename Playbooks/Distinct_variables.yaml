@@ -81,15 +81,7 @@
     - name: Test inline named list first item brackets notation
       debug:
         msg: "{{ inline_named_list[0] }}"
-#Sixth Play is about magic variable
-- name: 6th variable is magic variable type
-  hosts: linux
-  gather_facts: False
-  tasks:
-    - name: Test groupvars
-      debug:
-        msg: "{{ ansible_user }}"
-#Seventh Play about boolean variable type
+#Sixth Play about boolean variable type
 - name: 7th Variable type (Boolean)
   hosts: centos1
   gather_facts: False

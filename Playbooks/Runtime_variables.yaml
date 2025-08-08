@@ -1,27 +1,53 @@
 #Below Code is for knowing the different runtime variables and it has multiple plays with single task each inside.
 ---
-- name: Demo of  Runtime Variables (fact)
+#1st Play
+- name: Demo of  Runtime Variables (fact) Play
   hosts: centos1
   gather_facts: true
   tasks:
-    - name: Just for fact demo
+    - name: Just task for fact demo
       debug:
         msg: "This System is running on {{ ansible_facts['os_family'] }}"
-- name: Demo for Runtime Varibales (magic variable)
+#2nd Play
+- name: Demo for Runtime Varibales (magic variable) Play
   hosts: centos1
   gather_facts: true
   tasks:
-    - name: Just for magic variable
+    - name: Just task for magic variable
       debug:
        msg: "The inventory host is {{ inventory_hostname }}"
-- name: Demo for Registered variables
+#3rd Play
+- name: Demo for Registered variables Play
   hosts: centos1
   gather_facts: true
   tasks:
-     - name: Demo for Registered Variables
+     - name: Demo task for Registered Variables
        command: hostname
        register: hostname_result
-     - name: Show registered variables
+     - name: Show registered variables task
        debug:
          msg: "The command output is {{ hostname_result.stdout }}"
+#4th Play
+- name: Loop variable Play
+  hosts: centos1
+  gather_facts: False
+  tasks:
+   - name: Just task for loop variable
+     debug:
+       msg: "Installing package: {{ item }}"
+     loop:
+       - nginx
+       - php
+       - teja
+#5th Play 
+- name: Custom fact variable Play
+  hosts: centos1
+  gather_facts: False
+  tasks:
+    - name: Just task for Custom fact Variable
+      set_fact:
+         custom_env: "UAT"
+    - name: Using custom runtime fact
+      debug:
+        msg: "The custom enviroment is {{ custom_env }}"
 ...
