@@ -11,11 +11,11 @@
 #2nd Play
 - name: Demo for Runtime Varibales (magic variable) Play
   hosts: centos1
-  gather_facts: true
+  gather_facts: false
   tasks:
     - name: Just task for magic variable
       debug:
-       msg: "The inventory host is {{ inventory_hostname }}"
+        msg: "The inventory host is {{ hostvars }}"
 #3rd Play
 - name: Demo for Registered variables Play
   hosts: centos1
