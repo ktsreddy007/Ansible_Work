@@ -1,4 +1,27 @@
-#Below Code is for knowing the different runtime variables 
+#Below Code is for knowing the different runtime variables and it has multiple plays with single task each inside.
 ---
-
+- name: Demo of  Runtime Variables (fact)
+  hosts: centos1
+  gather_facts: true
+  tasks:
+    - name: Just for fact demo
+      debug:
+        msg: "This System is running on {{ ansible_facts['os_family'] }}"
+- name: Demo for Runtime Varibales (magic variable)
+  hosts: centos1
+  gather_facts: true
+  tasks:
+    - name: Just for magic variable
+      debug:
+       msg: "The inventory host is {{ inventory_hostname }}"
+- name: Demo for Registered variables
+  hosts: centos1
+  gather_facts: true
+  tasks:
+     - name: Demo for Registered Variables
+       command: hostname
+       register: hostname_result
+     - name: Show registered variables
+       debug:
+         msg: "The command output is {{ hostname_result.stdout }}"
 ...
