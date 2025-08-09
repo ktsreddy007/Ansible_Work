@@ -110,3 +110,14 @@ Defined test
 
 #To run the playbook along with Ansible vault password
 ansible-playbook playbook.yml --ask-vault-pass
+
+#Error handling mechanisms
+  Mechanism	          Purpose
+ignore_errors---------Skip failure, continue play
+failed_when-----------Custom failure conditions
+changed_when----------Custom "changed" conditions
+block/rescue----------Try/catch logic
+always----------------Always runs, even on failure
+max_fail_percentage---Limit host failures allowed
+any_errors_fatal------Fail entire play on one host failure
+fail module-----------Intentionally fail with a message
