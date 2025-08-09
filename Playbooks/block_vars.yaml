@@ -1,0 +1,20 @@
+#Below playbook demonstrates the use of block variable
+---
+- name: This play show usage of block variable
+  hosts: centos1
+  gather_facts: false
+  tasks:
+     - block:
+        - name: Show the username inside the block
+          debug:
+            msg: "User is {{ user_name }}"
+        - name: Show the home directory inside the block
+          debug:
+            msg: "Home dir is  {{ home_dir }}"
+       vars:
+          user_name: "teja"
+          home_dir: "/home/teja"
+     - name: Show block_var outside block
+       debug:
+         msg: " Outside the block user is {{ user_name }}"
+...
