@@ -1,0 +1,38 @@
+#This code shows how can we implement error handlings in ansible
+---
+- name: Just for error handlings
+  hosts: centos
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Install security updates
+      ansible.builtin.yum:
+        name: "{{item}}"
+        state: latest
+      loop:
+         - openssl
+         - openssh
+      ignore_errors: yes
+    - name: validating the ssl installation
+      shell: |
+         rpm -q openssl
+      register: myssl
+    - name: Validating the ssh installation
+      ansible.builtin.command:
+        rpm -q openssh
+      register: myssh
+    - name: Checking K8 presence
+      ansible.builtin.command: kubectl version --client
+      register: output
+      ignore_errors: yes
+    - name: Capturing the installation status
+      debug:
+       msg: |
+            OpenSSL: {{ myssl.stdout_lines }}
+            OpenSSH: {{ myssh }}
+            K8: {% if output.stdout_lines | length > 0 %}
+                   {{ output.msg }}
+                {% else %}
+                   K8 not installed or not present
+                {% endif %}
+...

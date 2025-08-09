@@ -121,3 +121,24 @@ always----------------Always runs, even on failure
 max_fail_percentage---Limit host failures allowed
 any_errors_fatal------Fail entire play on one host failure
 fail module-----------Intentionally fail with a message
+
+#If playbooks fails midway we can follow below apporaoches
+1) Check output logs by rerunning
+  ansible-playbook urplaybook.yaml -i inventory/hosts
+                     or
+  ansible-playbook urplaybook -i inventory/hosts -vvv
+2) If its a transient issue add retries & delay
+    retries : 5
+    delay : 10
+3) limit to single host for faster debugging
+   ansible-playbook urplaybook.yaml -i inventory/hosts --limit hostname
+                 or
+   ansible-playbook urplaybook.yaml -i inventory/hosts --limit 'web*' 
+4) handling recovery via below appraches
+  a) Re-run the playbook (if idempotent)
+  b) Start from a specific task (after fixing issue)
+      ansible-playbook urplaybook.yaml -i inventory/hosts --start-at-task="Install software"
+  c) use try catch mechanism like block ,rescue, always
+5) Post mortem improvements
+   a) Use failed_when and changed_when
+   b) Add logging and debug info     
