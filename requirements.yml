@@ -1,11 +1,10 @@
 collections:
   - name: ktsreddy007.myansible
     version: "1.0.0"
+    source: https://galaxy.ansible.com/ktsreddy007/myansible
   - name: ansible.builtin
     version: "2.9.0"
 
-roles:
-  - name: java
-    version: "1.0.0"
-  - name: nginx
-    version: "2.0.0"
+#roles:
+ # - name: nginx
+  #  version: "1.0.0"

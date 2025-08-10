@@ -200,7 +200,11 @@ ansible-galaxy collection init my_namespace.my_collection
 ansible-galaxy collection install my_namespace.my_collection
 #cmd to delete the collection 
 ansible-galaxy collection delete my_namespace.my_collection
-#cmd to install collection if requirement file is present
+#cmd to install collection from requirement file.
 ansible-galaxy collection install -r requirements.yml
 #cmd to install roles from requirments file
 ansible-galaxy install -r requirements.yml
+#Default location to find the installed collection
+cd ~/.ansible/collections/ansible_collections/
+#cmd to see the list of collections
+ansible-galaxy collection list
