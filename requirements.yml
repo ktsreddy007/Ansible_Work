@@ -1,0 +1,11 @@
+collections:
+  - name: ktsreddy007.myansible
+    version: "1.0.0"
+  - name: ansible.builtin
+    version: "2.9.0"
+
+roles:
+  - name: java
+    version: "1.0.0"
+  - name: nginx
+    version: "2.0.0"
