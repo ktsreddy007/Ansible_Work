@@ -1,2 +1,3 @@
+*.cfg
 .ansible.cfg
 ansible.cfg
