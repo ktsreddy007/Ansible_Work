@@ -167,4 +167,16 @@ sudo curl -O https://bootstrap.pypa.io/get-pip.py
 sudo python3 get-pip.py                           #cmd to install pip if not present
 ### Now install boto3 & boto core
 python3 -m pip install --upgrade 'boto3>=1.28.0' 'botocore>=1.31.0'
+============================================================================================
+#Command to create collection
+ansible-galaxy collection init mynamespace.mycollection
+#Command to build the collection
+ansible-galaxy collection build
+#Above cmd creates a .tar.gz file as below
+mynamespace-mycollection-1.0.0.tar.gz
+#Insatall above collection wrapped in tar locally
+ansible-galaxy collection install mynamespace-mycollection-1.0.0.tar.gz
+#Run the playbook from above
+ansible-playbook -i inventory.ini playbooks/install_ngnix.yml
+
 
