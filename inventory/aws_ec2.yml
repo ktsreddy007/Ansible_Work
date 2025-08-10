@@ -1,0 +1,4 @@
+# Fetch all hosts in us-east-1, the hostname is the public DNS if it exists, otherwise the private IP address
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
