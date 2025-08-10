@@ -1,0 +1,10 @@
+#Below code call the main.yml from the collection and roles to install Ngnix
+---
+- name: install NGINX on all servers using collection role
+  hosts: linux
+  become: true
+  collections:
+    - Tejaspace.myansible
+  roles:
+    - nginx
+...

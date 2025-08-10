@@ -3,6 +3,8 @@
 #First Play with simple variable declartion using key-values
 - name: 1st Variable String type
   hosts: centos1
+  collection:
+    - Tejaspace.myansible 
   gather_facts: False
   vars:
     example_key: example value
