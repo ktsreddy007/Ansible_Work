@@ -193,6 +193,14 @@ ansible-galaxy collection publish your_namespace-your_collection-<version>.tar.g
 #In above cmd we can ignore server and apikey as they are kept in ansible.cfg
 ansible-galaxy collection build
 ansible-galaxy collection publish your_namespace-your_collection-<version>.tar.gz
-
-
-
+=======================================================================================
+#cmd to initialize the collection freshly
+ansible-galaxy collection init my_namespace.my_collection
+#cmd to install the collection from galaxy and automationhub
+ansible-galaxy collection install my_namespace.my_collection
+#cmd to delete the collection 
+ansible-galaxy collection delete my_namespace.my_collection
+#cmd to install collection if requirement file is present
+ansible-galaxy collection install -r requirements.yml
+#cmd to install roles from requirments file
+ansible-galaxy install -r requirements.yml
