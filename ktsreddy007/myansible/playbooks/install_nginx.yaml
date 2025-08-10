@@ -4,7 +4,7 @@
   hosts: linux
   become: true
   collections:
-    - Tejaspace.myansible
+    - ktsreddy007.myansible
   roles:
     - nginx
 ...
