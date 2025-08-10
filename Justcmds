@@ -142,3 +142,29 @@ fail module-----------Intentionally fail with a message
 5) Post mortem improvements
    a) Use failed_when and changed_when
    b) Add logging and debug info     
+
+#Dynamic Inventory Installation Steps for AWS
+#Step 1
+Below cmd to check the collection is present in ansible package or not
+ansible-galaxy collection list --------check amazon.aws is present or not
+------------------------------------------------------------------------------
+#Step 2
+Now install it using below command 
+ansible-galaxy collection install amazon.aws
+-----------------------------------------------------------------------------
+#Step 3 Prerequiste
+To exacute above inventory we need to have below installed on control node
+python >=3.6
+boto3 >= 1.28.0
+botocore >=1.31.0
+###To check above are prerequiste version
+python3 -m pip --version  ## for pip
+python3 --version ####for python
+python3 -m pip show boto3 botocore  ####for boto3 & botocore
+### If not present it will not show version in that case install them via pip and curl
+sudo apt install -y curl  #cmd to install curl if not present
+sudo curl -O https://bootstrap.pypa.io/get-pip.py
+sudo python3 get-pip.py                           #cmd to install pip if not present
+### Now install boto3 & boto core
+python3 -m pip install --upgrade 'boto3>=1.28.0' 'botocore>=1.31.0'
+
