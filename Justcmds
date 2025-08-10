@@ -179,4 +179,4 @@ ansible-galaxy collection install mynamespace-mycollection-1.0.0.tar.gz
 #Run the playbook from above
 ansible-playbook -i inventory.ini playbooks/install_ngnix.yml
 
-
+Note : Ansible creates only the standard minimal collection structure. This does not include playbooks/ or tests/ directories by default — you have to add them manually if you need them.
