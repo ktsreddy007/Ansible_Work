@@ -180,3 +180,19 @@ ansible-galaxy collection install mynamespace-mycollection-1.0.0.tar.gz
 ansible-playbook -i inventory.ini playbooks/install_ngnix.yml
 
 Note : Ansible creates only the standard minimal collection structure. This does not include playbooks/ or tests/ directories by default — you have to add them manually if you need them.
+============================================================================================
+#command to publish collection via Ansible Automation hub 
+ansible-galaxy collection publish your_namespace-your_collection-<version>.tar.gz \
+  --server https://automation-hub.your-company.com/api/galaxy/ \
+  --api-key <YOUR_AUTOMATION_HUB_API_TOKEN>
+=========================================================================================
+#Below is the process to build , publish collection via Ansible Galaxy
+ansible-galaxy collection publish your_namespace-your_collection-<version>.tar.gz \
+  --server https://automation-hub.your-company.com/api/galaxy/ \
+  --api-key <YOUR_AUTOMATION_HUB_API_TOKEN>
+#In above cmd we can ignore server and apikey as they are kept in ansible.cfg
+ansible-galaxy collection build
+ansible-galaxy collection publish your_namespace-your_collection-<version>.tar.gz
+
+
+
