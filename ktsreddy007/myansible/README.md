@@ -1,3 +1,4 @@
-# Ansible Collection - Tejaspace.myansible
+# Ansible Collection - ktsreddy007.myansible
 
-Documentation for the collection.
+This is the collection for practisng where we would have necessary playbooks to install necessary softwares
+on Centos 3 nodes and Ubuntu 3 nodes
