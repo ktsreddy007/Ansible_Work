@@ -12,6 +12,12 @@
     name: nginx
     state: absent
     purge: yes
+    autoremove: yes
+  when: ansible_os_family == "Debian"
+  ignore_errors: yes
+- name: Remove all nginx-related packages on Ubuntu
+  shell: |
+    dpkg --get-selections | grep nginx | awk '{print $1}' | xargs -r apt purge -y
   when: ansible_os_family == "Debian"
   ignore_errors: yes
 - name: Uninstall Nginx on Centos
@@ -20,9 +26,17 @@
    state: absent
   when: ansible_os_family == "RedHat"
   ignore_errors: yes
+- name: Remove all NGINX packages from CentOS
+  shell: |
+      rpm -qa | grep nginx | xargs -r yum remove -y
+  when: ansible_os_family == "RedHat"
+  ignore_errors: yes
 - name: Remove nginx config directory
   file:
    path: /etc/nginx
    state: absent
   ignore_errors: yes
+- name: Reload systemd units (CentOS)
+  command: systemctl daemon-reload
+  when: ansible_os_family == "RedHat"
 ...

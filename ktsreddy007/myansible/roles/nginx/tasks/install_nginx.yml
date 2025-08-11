@@ -1,0 +1,20 @@
+# Code  for Installing Ngninx
+---
+- name: Install NGINX on CentOS
+  when: ansible_os_family == "RedHat"
+  yum:
+    name: nginx
+    state: present
+- name: Install NGINX on Ubuntu
+  when: ansible_os_family == "Debian"
+  apt:
+    name: nginx
+    state: present
+    update_cache: true
+- name: Ensure NGINX is started and enabled on (CentOS & Ubuntu)
+  when: ansible_os_family in ["RedHat", "Debian"]
+  service:
+   name: nginx
+   state: started
+   enabled: true
+...
