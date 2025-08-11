@@ -1,0 +1,28 @@
+#Below code for nginx uninstallation 
+---
+- name: Stopping the Nginx service on both centos and ubuntu
+  when: ansible_os_family in ["RedHat","Debian"]
+  service:
+    name: nginx
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+- name: Uninstall Nginx on Ubuntu
+  apt:
+    name: nginx
+    state: absent
+    purge: yes
+  when: ansible_os_family == "Debian"
+  ignore_errors: yes
+- name: Uninstall Nginx on Centos
+  yum:
+   name: nginx
+   state: absent
+  when: ansible_os_family == "RedHat"
+  ignore_errors: yes
+- name: Remove nginx config directory
+  file:
+   path: /etc/nginx
+   state: absent
+  ignore_errors: yes
+...

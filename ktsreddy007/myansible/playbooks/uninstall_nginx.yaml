@@ -1,0 +1,14 @@
+#Below code is for uninstalling nginx by calling roles
+---
+- name: Uninstall Nginx using role
+  hosts: linux
+  become: true
+
+   #roles:
+   # - role: nginx
+  tasks:
+    - name: Calling uninstall nginx role
+      include_role:
+        name: nginx
+        tasks_from: uninstall_nginx
+...
