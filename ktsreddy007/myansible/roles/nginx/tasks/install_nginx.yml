@@ -17,4 +17,26 @@
    name: nginx
    state: started
    enabled: true
+- name: Ensure default nginx /html directory exists on Ubuntu
+  when: ansible_os_family == "Debian"
+  file:
+    path: /var/www/html
+    state: directory
+    mode: '0755'
+- name: Deploy custom index.html on Ubuntu
+  when: ansible_os_family  == "Debian"
+  copy:
+    src: index.html
+    dest: /var/www/html
+- name: Ensure default nginx /html directory exists on Redhat
+  when: ansible_os_family == "RedHat"
+  file:
+    path: /usr/share/nginx/html
+    state: directory
+    mode: '0755'
+- name: Deploy custom index.html on Redhat
+  when: ansible_os_family  == "RedHat"
+  copy:
+    src: index.html
+    dest: /usr/share/nginx/html
 ...
