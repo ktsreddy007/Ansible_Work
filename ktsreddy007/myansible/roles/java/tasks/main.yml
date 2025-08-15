@@ -1,17 +1,18 @@
 # Code  for Multiple tasks for Java
 ---
 - block:
-    - name: Calling Java install tasks
-      include_tasks: java_install.yml
+   - name: Calling Java install tasks
+     include_tasks: java_install.yml
+
+   - name: Set Java Environments variables
+     include_tasks: set_env.yml
   when: java_action == "install"
 
 - block:
-   - name: "Set Java Environments variables"
-     include_tasks: set_env.yml
-
-
-- block:
     - name: Calling Java uninstall task
-      include_tasks: java_uninstall.yml
+      include_tasks: remove_java.yml
+
+    - name: Cleaning java env variables
+      include_tasks: cleanup_env.yml
   when: java_action == "uninstall"
 ...

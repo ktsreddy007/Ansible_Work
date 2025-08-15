@@ -1,0 +1,26 @@
+# Below code Uninstalls the Java packages & does not cleans up env files and folders
+---
+- name: "Fail if Java version is not supported"
+  fail:
+    msg: "Java version {{ java_version }} is not supported for {{ ansible_os_family }}"
+  when: java_version not in java_packages[ansible_os_family]
+
+- name: "Set Java package name to remove"
+  set_fact:
+    java_pkg: "{{ java_packages[ansible_os_family][java_version] }}"
+
+- name: "Remove Java on RedHat-based systems"
+  when: ansible_os_family == "RedHat"
+  package:
+    name: "{{ java_pkg }}"
+    state: absent
+  become: yes
+
+- name: "Remove Java on Debian-based systems"
+  when: ansible_os_family == "Debian"
+  apt:
+    name: "{{ java_pkg }}"
+    state: absent
+    purge: yes
+  become: yes
+...

@@ -1,0 +1,32 @@
+#Below code to cleanup/ remove the java environment variables & folders & wont uninstall java
+---
+- name: "Remove JAVA_HOME env file if exists"
+  file:
+    path: "{{ java_env_file }}"
+    state: absent
+  become: yes
+
+- name: "Find Java binary path (if still exists)"
+  command: readlink -f $(which java)
+  register: java_bin_path
+  ignore_errors: yes
+
+- name: "Set JAVA_HOME from java binary (if found)"
+  set_fact:
+    java_home: "{{ java_bin_path.stdout | regex_replace('/bin/java$', '') }}"
+  when: java_bin_path.rc == 0
+
+- name: "Remove JAVA_HOME directory (optional)"
+  file:
+    path: "{{ java_home }}"
+    state: absent
+  when: java_bin_path.rc == 0
+  become: yes
+
+- name: "Remove default Java folder (optional)"
+  file:
+    path: /usr/lib/jvm
+    state: absent
+  become: yes
+  ignore_errors: yes
+...

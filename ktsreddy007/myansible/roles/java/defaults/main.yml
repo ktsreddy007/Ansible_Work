@@ -11,3 +11,5 @@ java_packages:
     8: openjdk-8-jdk
     11: openjdk-11-jdk
     17: openjdk-17-jdk
+
+java_env_file: /etc/profile.d/java.sh
