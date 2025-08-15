@@ -1,4 +1,4 @@
-#Below code is for uninstalling nginx by calling roles
+#Below code is for uninstalling nginx by calling only specific uninstall task from roles
 ---
 - name: Uninstall Nginx using role
   hosts: linux

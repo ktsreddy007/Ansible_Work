@@ -1,4 +1,5 @@
-#Below playbook used for Nginx installation and uninstallation
+#Below playbook used for Nginx installation and uninstallation 
+# Its based on Role-based cotroller with nginx action 
 ---
 - name: Nginx master for Installing & Uninstalling using role
   hosts: linux
