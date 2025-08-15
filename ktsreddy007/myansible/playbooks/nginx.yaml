@@ -5,8 +5,8 @@
   become: true
 
   vars:
-    nginx_action: install
-    # Use value uninstall for removing                
+    nginx_action: uninstall
+    # Use value uninstall for removing
     # Use value install for installing
   collections:
     - ktsreddy007.myansible

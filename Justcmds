@@ -208,3 +208,6 @@ ansible-galaxy install -r requirements.yml
 cd ~/.ansible/collections/ansible_collections/
 #cmd to see the list of collections
 ansible-galaxy collection list
+===========================================================================
+#cmd to execute playbook by giving run time values of action
+ansible-playbook nginx.yaml -e nginx_action=uninstall
