@@ -1,2 +1,13 @@
 ---
 # defaults file for java
+java_version: 11
+
+java_packages:
+  RedHat:
+    8: java-1.8.0-openjdk-devel
+    11: java-11-openjdk-devel
+    17: java-17-openjdk-devel
+  Debian:
+    8: openjdk-8-jdk
+    11: openjdk-11-jdk
+    17: openjdk-17-jdk

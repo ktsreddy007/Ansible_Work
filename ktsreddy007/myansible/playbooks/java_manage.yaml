@@ -1,0 +1,15 @@
+#Below playbook used for Java installation and uninstallation ,Its based on Role-based cotroller with Java action 
+---
+- name: Java master for Installing & Uninstalling using role
+  hosts: linux
+  become: true
+
+  vars:
+    java_action: install
+    # Use value uninstall for removing
+    # Use value install for installing
+  collections:
+    - ktsreddy007.myansible
+  roles:
+    - java
+...

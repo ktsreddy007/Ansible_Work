@@ -1,0 +1,38 @@
+---
+- name: Fail if unsupported Java version
+  fail:
+    msg: "Java version {{ java_version }} is not supported for {{ ansible_os_family }}"
+  when: java_version not in java_packages[ansible_os_family]
+
+- name: Set Java package name based on OS and version
+  set_fact:
+    java_pkg: "{{ java_packages[ansible_os_family][java_version] }}"
+
+- name: Install Java on CentOS
+  when: ansible_os_family == "RedHat"
+  package:
+    name: "{{ java_pkg }}"
+    state: present
+  become: yes
+
+- name: Update Apt Cache on Ubuntu
+  when: ansible_os_family == "Debian"
+  apt:
+    update_cache: true
+  become: yes
+
+- name: Install Java on Ubuntu
+  when: ansible_os_family == "Debian"
+  apt:
+    name: "{{ java_pkg }}"
+    state: present
+  become: yes
+
+- name: Verify java installation (debug java verison)
+  command: java -version
+  register: java_version_output
+  ignore_errors: no
+
+- debug:
+    var: java_version_output.stderr_lines
+...
