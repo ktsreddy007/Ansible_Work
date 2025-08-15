@@ -42,24 +42,24 @@
 - name: Ensure default nginx /html directory exists on Ubuntu
   when: ansible_os_family == "Debian"
   file:
-    path: /var/www/html
+    path: "{{ nginx_root }}"
     state: directory
     mode: '0755'
 - name: Deploy custom index.html on Ubuntu
   when: ansible_os_family  == "Debian"
   copy:
     src: index.html
-    dest: /var/www/html
+    dest: "{{ nginx_root }}"
 
 - name: Ensure default nginx /html directory exists on Redhat
   when: ansible_os_family == "RedHat"
   file:
-    path: /usr/share/nginx/html
+    path: "{{ nginx_root }}"
     state: directory
     mode: '0755'
 - name: Deploy custom index.html on Redhat
   when: ansible_os_family  == "RedHat"
   copy:
     src: index.html
-    dest: /usr/share/nginx/html
+    dest: "{{ nginx_root }}"
 ...
