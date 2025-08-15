@@ -1,22 +1,44 @@
 # Code  for Installing Ngninx
 ---
+- name: Ensure EPEL is enabled on Redhat Systems
+  when: ansible_os_family == "RedHat"
+  yum:
+   name: epel-release
+   state: present
+- name: Check if yum is available (Redhat)
+  when: ansible_os_family == "RedHat"
+  command: which yum
+  register: yum_check
+  failed_when: yum_check.rc != 0
+  changed_when: false
+
+- name: Check if apt is available (Debian)
+  when: ansible_os_family == "Debian"
+  command: which apt
+  register: apt_check
+  failed_when: apt_check.rc != 0
+  changed_when: false
+
 - name: Install NGINX on CentOS
   when: ansible_os_family == "RedHat"
   yum:
     name: nginx
     state: present
-- name: Install NGINX on Ubuntu
+
+- name: Update Cache & Install NGINX on Ubuntu
   when: ansible_os_family == "Debian"
   apt:
     name: nginx
     state: present
     update_cache: true
+
 - name: Ensure NGINX is started and enabled on (CentOS & Ubuntu)
   when: ansible_os_family in ["RedHat", "Debian"]
   service:
    name: nginx
    state: started
    enabled: true
+
 - name: Ensure default nginx /html directory exists on Ubuntu
   when: ansible_os_family == "Debian"
   file:
@@ -28,6 +50,7 @@
   copy:
     src: index.html
     dest: /var/www/html
+
 - name: Ensure default nginx /html directory exists on Redhat
   when: ansible_os_family == "RedHat"
   file:
