@@ -1,10 +1,12 @@
 # Code  for Multiple tasks for Nginx
 ---
-- name: Calling nginx install tasks
-  import_tasks: install_nginx.yml
+- block:
+    - name: Calling nginx install tasks
+      include_tasks: install_nginx.yml
   when: nginx_action == "install"
 
-- name: Calling nginx uninstall task
-  import_tasks: uninstall_nginx.yml
+- block:
+    - name: Calling nginx uninstall task
+      include_tasks: uninstall_nginx.yml
   when: nginx_action == "uninstall"
 ...
