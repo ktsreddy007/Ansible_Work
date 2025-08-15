@@ -1,24 +1,5 @@
 # Code  for Installing Ngninx
 ---
-- name: Ensure EPEL is enabled on Redhat Systems
-  when: ansible_os_family == "RedHat"
-  yum:
-   name: epel-release
-   state: present
-- name: Check if yum is available (Redhat)
-  when: ansible_os_family == "RedHat"
-  command: which yum
-  register: yum_check
-  failed_when: yum_check.rc != 0
-  changed_when: false
-
-- name: Check if apt is available (Debian)
-  when: ansible_os_family == "Debian"
-  command: which apt
-  register: apt_check
-  failed_when: apt_check.rc != 0
-  changed_when: false
-
 - name: Install NGINX on CentOS
   when: ansible_os_family == "RedHat"
   yum:
@@ -39,27 +20,28 @@
    state: started
    enabled: true
 
-- name: Ensure default nginx /html directory exists on Ubuntu
-  when: ansible_os_family == "Debian"
+- name: Ensure default nginx /html directory exists on Centos & Ubuntu
+  when: ansible_os_family in  ["RedHat","Debian"]
   file:
     path: "{{ nginx_root }}"
     state: directory
     mode: '0755'
-- name: Deploy custom index.html on Ubuntu
-  when: ansible_os_family  == "Debian"
+
+- name: Deploy custom index.html on Centos & Ubutu
+  when: ansible_os_family in ["RedHat","Debian"]
   copy:
     src: index.html
     dest: "{{ nginx_root }}"
 
-- name: Ensure default nginx /html directory exists on Redhat
-  when: ansible_os_family == "RedHat"
-  file:
-    path: "{{ nginx_root }}"
-    state: directory
-    mode: '0755'
-- name: Deploy custom index.html on Redhat
-  when: ansible_os_family  == "RedHat"
-  copy:
-    src: index.html
-    dest: "{{ nginx_root }}"
+#- name: Ensure default nginx /html directory exists on Redhat
+#  when: ansible_os_family == "RedHat"
+#  file:
+ #   path: "{{ nginx_root }}"
+  #  state: directory
+   # mode: '0755'
+#- name: Deploy custom index.html on Redhat
+ # when: ansible_os_family  == "RedHat"
+  #copy:
+   # src: index.html
+    #dest: "{{ nginx_root }}"
 ...
