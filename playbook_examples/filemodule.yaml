@@ -1,0 +1,32 @@
+#Below code shows usage of various file modules
+---
+#First Play for creating a file 
+- name: This is create file module
+  hosts: centos1
+  gather_facts: True
+  tasks:
+   - name: create a file
+     file:
+       path: /tmp/removeme
+       owner: root
+       mode: 0640
+       state: touch
+#Second Play for Copy module 
+   - name: copy file demo
+     copy:
+       src: /tmp/removed.txt
+       dest: /tmp/
+#Third task for Blockinfile module for adding some lines
+   - name: blockinfile demo
+     blockinfile:
+       path: /tmp/removed.txt
+       block: |
+          Hello Teja i am here
+       state: present
+#Fourth task for Lineinfile module for adding some lines similar to above
+   - name: Insert a line without any comments
+     lineinfile:
+       path: /tmp/removed.txt
+       line: "Hello This is inline I am here"
+       create: yes
+...
