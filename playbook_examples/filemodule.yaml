@@ -43,4 +43,15 @@
      debug:
        msg: "File exists"
      when: filepresence.stat.exists
+#Seventh task for find module
+   - name: Find old files of aged 7
+     find:
+       paths: /var/log/
+       age: 7d
+     register: fileager
+   - name: Validating file age
+     debug:
+        var: fileager.files
+        #msg: "Files found oldet than 7 days"
+     when: fileager.matched > 0
 ...
