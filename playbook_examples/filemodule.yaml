@@ -11,7 +11,7 @@
        owner: root
        mode: 0640
        state: touch
-#Second Play for Copy module 
+#Second task for Copy module 
    - name: copy file demo
      copy:
        src: /tmp/removed.txt
@@ -29,4 +29,9 @@
        path: /tmp/removed.txt
        line: "Hello This is inline I am here"
        create: yes
+#Fifith task for fetch module
+   - name: fetch a file
+     fetch:
+       src: /tmp/removed.txt
+       dest: /tmp/
 ...
