@@ -34,4 +34,13 @@
      fetch:
        src: /tmp/removed.txt
        dest: /tmp/
+#Sixth task for Stat module
+   - name: Knowing about file with stat module
+     stat:
+       path: /tmp/removed.txt
+     register: filepresence
+   - name: Validating file is present or not
+     debug:
+       msg: "File exists"
+     when: filepresence.stat.exists
 ...
