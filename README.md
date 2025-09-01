@@ -4,8 +4,11 @@ It covers below concepts till date
 - Tasks
 - Play
 - Modules
+    File , Copy , Stat , Blockinfile , lineinfile , Fetch , Find , Replace , Template , assemble , archive , unarchive,
+    Synchronize 
 - Ansible Vault
 - Secrets
+- Error Handlings
 - Collections
 - Roles
 - Variables
