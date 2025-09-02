@@ -1,12 +1,12 @@
 #Below playbook used for Nginx installation and uninstallation 
 # Its based on Role-based cotroller with nginx action 
 ---
-- name: Nginx master for Installing & Uninstalling using role
+- name: Nginx master for Installing & Uninstalling , Patching using role
   hosts: linux
   become: true
 
   vars:
-    nginx_action: install
+    nginx_action: uninstall
     # Use value uninstall for removing
     # Use value install for installing
     # Use value patch for patching
