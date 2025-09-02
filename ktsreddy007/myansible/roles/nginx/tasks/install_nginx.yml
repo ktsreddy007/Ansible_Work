@@ -67,7 +67,7 @@
 #    target: "{{ nginx_root }}(/.*)?"
 #    setype: httpd_sys_content_t
 #    state: present
-#    notify: restorecon
+#  notify: restorecon
 #  when: ansible_os_family == "RedHat"
 ############################
 # UBUNTU / DEBIAN
@@ -131,13 +131,13 @@
     path: "{{ nginx_root }}"
     state: directory
     mode: '0755'
-    notify: restart nginx
+  notify: restart nginx
   when: ansible_os_family in ["RedHat", "Debian"]
 - name: Deploy custom index.html
   copy:
     src: index.html
     dest: "{{ nginx_root }}"
-    notify: restart nginx
+  notify: restart nginx
   when: ansible_os_family in ["RedHat", "Debian"]
 #- name: Install NGINX on CentOS
 #  when: ansible_os_family == "RedHat"
