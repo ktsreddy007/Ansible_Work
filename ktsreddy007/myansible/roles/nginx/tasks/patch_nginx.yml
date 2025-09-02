@@ -1,0 +1,24 @@
+#Below playbook patches the nginx
+---
+- name: Patch only NGINX
+  package:
+    name: nginx
+    state: latest
+  when: patch_scope | default('nginx') == "nginx"
+
+- name: Full system patch (Debian)
+  apt:
+    upgrade: dist
+    update_cache: yes
+  when:
+    - patch_scope | default('nginx') == "full"
+    - ansible_os_family == "Debian"
+
+- name: Full system patch (RHEL)
+  yum:
+    name: '*'
+    state: latest
+  when:
+    - patch_scope | default('nginx') == "full"
+    - ansible_os_family == "RedHat"
+...

@@ -9,4 +9,9 @@
     - name: Calling nginx uninstall task
       include_tasks: uninstall_nginx.yml
   when: nginx_action == "uninstall"
+
+- block:
+    - name: Calling nginx patch task
+      include_tasks: patch_nginx.yml
+  when: nginx_action == "patch"
 ...
