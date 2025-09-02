@@ -1,0 +1,22 @@
+#Below code is a demo for Cron module usage
+---
+- name: Check and create file with content
+  hosts: centos1
+  become: true
+  tasks:
+    - name: Install cronie (for crontab)
+      yum:
+        name: cronie
+        state: present
+    - name: Check if backup script exists
+      stat:
+        path: /usr/local/bin/backup.sh
+      register: backup_script
+    - name: Add a cron job
+      cron:
+        name: "Backup job"
+        minute: "0"
+        hour: "2"
+        job: "/usr/local/bin/backup.sh"
+      when: backup_script.stat.exists
+...
