@@ -1,10 +1,10 @@
 #Below code is a demo for Cron module usage
 ---
-- name: Check and create file with content
+- name: Check Cron is present or not & schedule cron 
   hosts: centos1
   become: true
   tasks:
-    - name: Install cronie (for crontab)
+    - name: Install cronie library (for crontab)
       yum:
         name: cronie
         state: present
@@ -12,7 +12,7 @@
       stat:
         path: /usr/local/bin/backup.sh
       register: backup_script
-    - name: Add a cron job
+    - name: Scheduling a cron job
       cron:
         name: "Backup job"
         minute: "0"
