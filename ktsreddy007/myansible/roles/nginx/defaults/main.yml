@@ -1,3 +1,8 @@
 ---
 # defaults file for AnsiPro
-nginx_root: "{{ '/usr/share/nginx/html' if ansible_os_family == 'RedHat' else '/var/www/html' }}"
+nginx_root: >-
+  {{ '/usr/share/nginx/html' if
+      (ansible_os_family == 'RedHat' or
+       ansible_distribution == 'Ubuntu') else '/var/www/html' }}
+
+#nginx_root: "{{ '/usr/share/nginx/html' if ansible_os_family == 'RedHat' else '/var/www/html' }}"
