@@ -1,38 +1,122 @@
-# Code  for Installing Ngninx
+# Install latest NGINX on CentOS/RHEL and Ubuntu/Debian
+# using official nginx.org repository
 ---
-- name: Install NGINX on CentOS
+############################
+# CENTOS / RHEL
+############################
+- name: Install yum-utils (for repo management)
+  yum:
+    name: yum-utils
+    state: present
   when: ansible_os_family == "RedHat"
+
+- name: Add official NGINX repo (CentOS/RHEL)
+  get_url:
+    url: "https://nginx.org/packages/centos/7/nginx.repo"
+    dest: /etc/yum.repos.d/nginx.repo
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "7"
+
+- name: Import NGINX GPG key (CentOS 7 only)
+  rpm_key:
+    state: present
+    key: https://nginx.org/keys/nginx_signing.key
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "7"
+
+- name: Clean yum cache (CentOS/RHEL)
+  command: yum clean all
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "7"
+- name: Install NGINX using default OS repos (CentOS 8/9)
   yum:
     name: nginx
+    state: latest
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version is version('8', '>=')
+############################
+# UBUNTU / DEBIAN
+############################
+- name: Ensure gnupg is installed (for apt_key)
+  apt:
+    name: gnupg
     state: present
-
-- name: Update Cache & Install NGINX on Ubuntu
   when: ansible_os_family == "Debian"
+
+- name: Add NGINX signing key (Ubuntu/Debian)
+  apt_key:
+    url: https://nginx.org/keys/nginx_signing.key
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add official NGINX repo (Ubuntu/Debian)
+  apt_repository:
+    repo: "deb http://nginx.org/packages/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx"
+    state: present
+    filename: nginx
+  when: ansible_os_family == "Debian"
+- name: Update apt cache (Ubuntu/Debian)
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install latest NGINX (Ubuntu/Debian)
   apt:
     name: nginx
-    state: present
-    update_cache: true
-
-- name: Ensure NGINX is started and enabled on (CentOS & Ubuntu)
-  when: ansible_os_family in ["RedHat", "Debian"]
+    state: latest
+  when: ansible_os_family == "Debian"
+############################
+# COMMON POST-INSTALL
+############################
+- name: Ensure NGINX is started and enabled
   service:
-   name: nginx
-   state: started
-   enabled: true
-
-- name: Ensure default nginx /html directory exists on Centos & Ubuntu
-  when: ansible_os_family in  ["RedHat","Debian"]
+    name: nginx
+    state: started
+    enabled: true
+  when: ansible_os_family in ["RedHat", "Debian"]
+- name: Ensure NGINX root directory exists
   file:
     path: "{{ nginx_root }}"
     state: directory
     mode: '0755'
-
-- name: Deploy custom index.html on Centos & Ubutu
-  when: ansible_os_family in ["RedHat","Debian"]
+  when: ansible_os_family in ["RedHat", "Debian"]
+- name: Deploy custom index.html
   copy:
     src: index.html
     dest: "{{ nginx_root }}"
-
+  when: ansible_os_family in ["RedHat", "Debian"]
+#- name: Install NGINX on CentOS
+#  when: ansible_os_family == "RedHat"
+#  yum:
+#    name: nginx
+#    state: present
+#- name: Update Cache & Install NGINX on Ubuntu
+#  when: ansible_os_family == "Debian"
+#  apt:
+#    name: nginx
+#    state: present
+#    update_cache: true
+#- name: Ensure NGINX is started and enabled on (CentOS & Ubuntu)
+#  when: ansible_os_family in ["RedHat", "Debian"]
+#  service:
+#   name: nginx
+#   state: started
+#   enabled: true
+#- name: Ensure default nginx /html directory exists on Centos & Ubuntu
+#  when: ansible_os_family in  ["RedHat","Debian"]
+#  file:
+#    path: "{{ nginx_root }}"
+#    state: directory
+#    mode: '0755'
+#- name: Deploy custom index.html on Centos & Ubutu
+#  when: ansible_os_family in ["RedHat","Debian"]
+#  copy:
+#    src: index.html
+#    dest: "{{ nginx_root }}"
 #- name: Ensure default nginx /html directory exists on Redhat
 #  when: ansible_os_family == "RedHat"
 #  file:
