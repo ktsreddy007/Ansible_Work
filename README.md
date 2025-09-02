@@ -17,5 +17,5 @@
 
 ---
 **Realtime POC's Scenarios**
-Managing Ngnix Software over 6 OS's (Centos & Ubuntu) --- Includes Installation,Uninstallation
-Managing Java Software over 6 OS's (Centos & Ubuntu) --- Includes Installation,Uninstallation
+1. Managing Ngnix Software over 6 OS's (Centos & Ubuntu) --- Includes Installation,Uninstallation
+2. Managing Java Software over 6 OS's (Centos & Ubuntu) --- Includes Installation,Uninstallation
