@@ -1,2 +1,10 @@
 ---
 # handlers file for AnsiPro
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: restorecon nginx root
+  command: restorecon -Rv "{{ nginx_root }}"
+  when: ansible_os_family == "RedHat"

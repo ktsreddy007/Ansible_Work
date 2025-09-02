@@ -6,7 +6,7 @@
   become: true
 
   vars:
-    nginx_action: install
+    nginx_action: uninstall
     # Use value uninstall for removing
     # Use value install for installing
     # Use value patch for patching

@@ -38,15 +38,49 @@
   when:
     - ansible_os_family == "RedHat"
     - ansible_distribution_major_version is version('8', '>=')
+
+#- name: Ensure firewalld and Python bindings are installed (RedHat)
+#  package:
+#    name:
+#      - firewalld
+#      - python3-firewall
+#    state: present
+#  when: ansible_os_family == "RedHat"
+
+#- name: Ensure firewalld is started and enabled
+#  service:
+#    name: firewalld
+#    state: started
+#    enabled: true
+#  when: ansible_os_family == "RedHat"
+
+#- name: Open HTTP port in firewalld
+#  firewalld:
+#    service: http
+#    permanent: true
+#    immediate: yes
+#    state: enabled
+#  when: ansible_os_family == "RedHat"
+
+#- name: Set SELinux context for nginx root
+#  sefcontext:
+#    target: "{{ nginx_root }}(/.*)?"
+#    setype: httpd_sys_content_t
+#    state: present
+#    notify: restorecon
+#  when: ansible_os_family == "RedHat"
 ############################
 # UBUNTU / DEBIAN
 ############################
-- name: Ensure gnupg is installed (for apt_key)
+- name: Ensure required packages are installed
   apt:
-    name: gnupg
+    name: "{{ item }}"
     state: present
+    update_cache: yes
+  loop:
+    - gnupg
+    - ca-certificates
   when: ansible_os_family == "Debian"
-
 - name: Add NGINX signing key (Ubuntu/Debian)
   apt_key:
     url: https://nginx.org/keys/nginx_signing.key
@@ -59,6 +93,7 @@
     state: present
     filename: nginx
   when: ansible_os_family == "Debian"
+
 - name: Update apt cache (Ubuntu/Debian)
   apt:
     update_cache: yes
@@ -68,6 +103,19 @@
   apt:
     name: nginx
     state: latest
+  when: ansible_os_family == "Debian"
+
+- name: Ensure UFW is installed
+  apt:
+    name: ufw
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Allow HTTP traffic via UFW
+  ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
   when: ansible_os_family == "Debian"
 ############################
 # COMMON POST-INSTALL
@@ -83,11 +131,13 @@
     path: "{{ nginx_root }}"
     state: directory
     mode: '0755'
+    notify: restart nginx
   when: ansible_os_family in ["RedHat", "Debian"]
 - name: Deploy custom index.html
   copy:
     src: index.html
     dest: "{{ nginx_root }}"
+    notify: restart nginx
   when: ansible_os_family in ["RedHat", "Debian"]
 #- name: Install NGINX on CentOS
 #  when: ansible_os_family == "RedHat"
