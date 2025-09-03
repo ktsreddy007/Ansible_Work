@@ -1,6 +1,9 @@
 # Install latest NGINX on CentOS/RHEL and Ubuntu/Debian
 # using official nginx.org repository
 ---
+########################
+#PRE INSTALL CALLER
+########################
 - name: Run pre-install tasks
   import_tasks: preinstall_nginx.yml
 
@@ -40,6 +43,11 @@
     port: '80'
     proto: tcp
   when: ansible_os_family == "Debian"
+######################################
+#POST INSTALL CALLER
+#####################################
+- name: Run post-install tasks
+  import_tasks: postinstall_nginx.yml
 #- name: Install NGINX on CentOS
 #  when: ansible_os_family == "RedHat"
 #  yum:
