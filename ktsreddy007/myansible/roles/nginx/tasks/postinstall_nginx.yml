@@ -7,6 +7,16 @@
     enabled: true
   when: ansible_os_family in ["RedHat", "Debian"]
 
+- name: Allow NGINX to connect to network (SELinux)
+  seboolean:
+    name: httpd_can_network_connect
+    state: true
+    persistent: true
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_selinux.status == "enabled"
+    - ansible_selinux.mode == "enforcing"
+
 - name: Ensure NGINX root directory exists
   file:
     path: "{{ nginx_root }}"

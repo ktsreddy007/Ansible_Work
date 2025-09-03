@@ -17,4 +17,5 @@
 
 - name: Clean yum cache (CentOS 7)
   command: yum clean all
+  changed_when: false
 ...

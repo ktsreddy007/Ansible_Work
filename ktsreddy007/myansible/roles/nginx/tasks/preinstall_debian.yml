@@ -14,7 +14,7 @@
     - ca-certificates
   register: apt_output
   when: ansible_os_family == "Debian"
-  ignore_errors: yes
+  ignore_errors: no
 
 - name: Debug apt package installation result
   debug:
@@ -24,14 +24,11 @@
   apt_key:
     url: https://nginx.org/keys/nginx_signing.key
     state: present
+    validate_certs: yes
 
 - name: Add official NGINX repo (Ubuntu/Debian)
   apt_repository:
     repo: "deb http://nginx.org/packages/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx"
     state: present
     filename: nginx
-
-- name: Update apt cache (Ubuntu/Debian)
-  apt:
-    update_cache: yes
 ...

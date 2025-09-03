@@ -21,9 +21,6 @@
     - ansible_distribution_major_version is version('10', '<')
 
 
-
-
-
 #- name: Add official NGINX repo (CentOS 8/9)
 #  get_url:
 #    url: "https://nginx.org/packages/centos/{{ ansible_distribution_major_version }}/nginx.repo"
