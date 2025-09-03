@@ -3,6 +3,11 @@
 ---
 - name: Run pre-install tasks
   import_tasks: preinstall_nginx.yml
+
+- name: Show detected OS version
+  debug:
+    msg: "Installing NGINX on {{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+
 ############################
 # CENTOS / RHEL
 ############################
@@ -13,6 +18,7 @@
   when:
     - ansible_os_family == "RedHat"
     - ansible_distribution_major_version is version('8', '>=')
+    - ansible_distribution_major_version is version('10','<')
 ############################
 # UBUNTU / DEBIAN
 ############################

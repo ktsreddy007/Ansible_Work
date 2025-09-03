@@ -1,0 +1,17 @@
+#Below code is for Centos 8/9 only
+---
+- name: Install yum-utils for repo management (CentOS 8/9)
+  yum:
+    name: yum-utils
+    state: present
+
+- name: Add official NGINX repo (CentOS 8/9)
+  get_url:
+    url: "https://nginx.org/packages/centos/{{ ansible_distribution_major_version }}/nginx.repo"
+    dest: /etc/yum.repos.d/nginx.repo
+
+- name: Import NGINX GPG key (CentOS 8/9)
+  rpm_key:
+    state: present
+    key: https://nginx.org/keys/nginx_signing.key
+...

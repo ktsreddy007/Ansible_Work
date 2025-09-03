@@ -1,0 +1,20 @@
+#Below code is for Centos 7 only
+---
+- name: Install yum-utils for repo management (CentOS 7)
+  yum:
+    name: yum-utils
+    state: present
+
+- name: Add official NGINX repo (CentOS 7)
+  get_url:
+    url: "https://nginx.org/packages/centos/7/nginx.repo"
+    dest: /etc/yum.repos.d/nginx.repo
+
+- name: Import NGINX GPG key (CentOS 7)
+  rpm_key:
+    state: present
+    key: https://nginx.org/keys/nginx_signing.key
+
+- name: Clean yum cache (CentOS 7)
+  command: yum clean all
+...

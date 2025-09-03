@@ -1,0 +1,32 @@
+#Below code is for Debian/Ubuntu
+---
+- name: Ensure required packages are installed (Ubuntu/Debian)
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - gnupg
+    - ca-certificates
+  register: apt_output
+  ignore_errors: yes
+
+- name: Debugging apt task output
+  debug:
+    var: apt_output
+
+- name: Add NGINX signing key (Ubuntu/Debian)
+  apt_key:
+    url: https://nginx.org/keys/nginx_signing.key
+    state: present
+
+- name: Add official NGINX repo (Ubuntu/Debian)
+  apt_repository:
+    repo: "deb http://nginx.org/packages/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx"
+    state: present
+    filename: nginx
+
+- name: Update apt cache (Ubuntu/Debian)
+  apt:
+    update_cache: yes
+...
