@@ -1,0 +1,63 @@
+#Below is for prerequiste of nginx installation
+---
+###############
+#Centos/Redhat
+###############
+- name: Install yum-utils (for repo management)
+  yum:
+    name: yum-utils
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Add official NGINX repo (CentOS/RHEL)
+  get_url:
+    url: "https://nginx.org/packages/centos/7/nginx.repo"
+    dest: /etc/yum.repos.d/nginx.repo
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "7"
+
+- name: Import NGINX GPG key (CentOS 7 only)
+  rpm_key:
+    state: present
+    key: https://nginx.org/keys/nginx_signing.key
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "7"
+
+- name: Clean yum cache (CentOS/RHEL)
+  command: yum clean all
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "7"
+######################
+#Debian / Ubuntu
+######################
+- name: Ensure required packages are installed
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - gnupg
+    - ca-certificates
+  when: ansible_os_family == "Debian"
+
+- name: Add NGINX signing key (Ubuntu/Debian)
+  apt_key:
+    url: https://nginx.org/keys/nginx_signing.key
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add official NGINX repo (Ubuntu/Debian)
+  apt_repository:
+    repo: "deb http://nginx.org/packages/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx"
+    state: present
+    filename: nginx
+  when: ansible_os_family == "Debian"
+
+- name: Update apt cache (Ubuntu/Debian)
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+...
