@@ -3,13 +3,31 @@
 ###############
 #Centos/Redhat
 ###############
-- name: Install yum-utils (for repo management)
+- name: Install yum-utils for repo management (CentOS)
   yum:
     name: yum-utils
     state: present
   when: ansible_os_family == "RedHat"
 
-- name: Add official NGINX repo (CentOS/RHEL)
+#- name: Add official NGINX repo (CentOS/RHEL 7/8/9)
+#  get_url:
+#    url: "https://nginx.org/packages/centos/{{ ansible_distribution_major_version }}/nginx.repo"
+#    dest: /etc/yum.repos.d/nginx.repo
+#  when:
+#    - ansible_os_family == "RedHat"
+#    - ansible_distribution_major_version is version('7', '>=')
+#    - ansible_distribution_major_version is version('10', '<')  # < 10
+
+#- name: Import NGINX GPG key
+#  rpm_key:
+#    state: present
+#    key: https://nginx.org/keys/nginx_signing.key
+#  when:
+#    - ansible_os_family == "RedHat"
+#    - ansible_distribution_major_version is version('7', '>=') 
+#    - ansible_distribution_major_version is version('10', '<')
+
+- name: Add official NGINX repo (CentOS)
   get_url:
     url: "https://nginx.org/packages/centos/7/nginx.repo"
     dest: /etc/yum.repos.d/nginx.repo
@@ -25,7 +43,7 @@
     - ansible_os_family == "RedHat"
     - ansible_distribution_major_version == "7"
 
-- name: Clean yum cache (CentOS/RHEL)
+- name: Clean yum cache (CentOS)
   command: yum clean all
   when:
     - ansible_os_family == "RedHat"
@@ -33,7 +51,7 @@
 ######################
 #Debian / Ubuntu
 ######################
-- name: Ensure required packages are installed
+- name: Ensure required packages are installed (Ubuntu)
   apt:
     name: "{{ item }}"
     state: present
@@ -41,22 +59,28 @@
   loop:
     - gnupg
     - ca-certificates
+  register: apt_output
   when: ansible_os_family == "Debian"
+  ignore_errors: yes
 
-- name: Add NGINX signing key (Ubuntu/Debian)
+- name: Debugging apt task output
+  debug:
+    var: apt_output
+
+- name: Add NGINX signing key (Ubuntu)
   apt_key:
     url: https://nginx.org/keys/nginx_signing.key
     state: present
   when: ansible_os_family == "Debian"
 
-- name: Add official NGINX repo (Ubuntu/Debian)
+- name: Add official NGINX repo (Ubuntu)
   apt_repository:
     repo: "deb http://nginx.org/packages/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx"
     state: present
     filename: nginx
   when: ansible_os_family == "Debian"
 
-- name: Update apt cache (Ubuntu/Debian)
+- name: Update apt cache (Ubuntu)
   apt:
     update_cache: yes
   when: ansible_os_family == "Debian"

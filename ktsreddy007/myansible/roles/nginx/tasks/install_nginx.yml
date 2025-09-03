@@ -1,6 +1,8 @@
 # Install latest NGINX on CentOS/RHEL and Ubuntu/Debian
 # using official nginx.org repository
 ---
+- name: Run pre-install tasks
+  import_tasks: preinstall_nginx.yml
 ############################
 # CENTOS / RHEL
 ############################
@@ -14,7 +16,7 @@
 ############################
 # UBUNTU / DEBIAN
 ############################
-- name: Install latest NGINX (Ubuntu/Debian)
+- name: Install latest NGINX (Ubuntu)
   apt:
     name: nginx
     state: latest
