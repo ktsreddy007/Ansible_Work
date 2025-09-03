@@ -16,6 +16,13 @@
 - loops
 
 ---
+## 📊 Our Deployment Architecture Design of Connected Nodes 
+
+<p align="center">
+<img src="images/Ansible_myarch.png" alt="Our Deployment Architecture" />    
+</p> 
+
+---
 **Realtime POC's Scenarios**
-1. Managing Ngnix Software over 6 OS's (Centos & Ubuntu) --- Includes Installation,Uninstallation
+1. Managing Ngnix Software over 6 OS's (Centos & Ubuntu) --- Includes Installation,Uninstallation,Patching
 2. Managing Java Software over 6 OS's (Centos & Ubuntu) --- Includes Installation,Uninstallation
