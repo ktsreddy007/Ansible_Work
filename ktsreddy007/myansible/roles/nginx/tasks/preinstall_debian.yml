@@ -1,17 +1,22 @@
 #Below code is for Debian/Ubuntu
 ---
+- name: Update APT cache once (Ubuntu/Debian)
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
 - name: Ensure required packages are installed (Ubuntu/Debian)
   apt:
     name: "{{ item }}"
     state: present
-    update_cache: yes
   loop:
     - gnupg
     - ca-certificates
   register: apt_output
+  when: ansible_os_family == "Debian"
   ignore_errors: yes
 
-- name: Debugging apt task output
+- name: Debug apt package installation result
   debug:
     var: apt_output
 
