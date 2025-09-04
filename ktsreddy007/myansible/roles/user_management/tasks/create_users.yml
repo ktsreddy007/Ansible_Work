@@ -13,12 +13,4 @@
     state: present
     create_home: yes
   loop: "{{ users }}"
-
-- name: Set default shell to bash
-  become: true
-  command: chsh -s /bin/bash {{ item.username }}
-  loop: "{{ users }}"
-  when:
-     - ansible_facts['os_family'] in ['RedHat', 'Debian']
-     - lookup('ansible.builtin.pipe', 'getent passwd ' + item.username).split(':')[6] != '/bin/bash'
 ...
