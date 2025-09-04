@@ -4,11 +4,19 @@
   hosts: linux
   become: true
 
-  vars:
-    user_action: create
+  vars_prompt:
+    - name: "user_action"
+      prompt: "What action do you want to perform? (create/delete/update)"
+      private: no
+
+  vars_files:
+    - vars/main.yml   # contains 'users' and 'custom_group'  
+
+ #vars:
+    #user_action: create
     # Use value create for user creation
     # Use value delete for user deletion
-    # Use value modify for user modification
+    # Use value update for user modification
   collections:
     - ktsreddy007.myansible
   roles:
