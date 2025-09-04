@@ -1,2 +1,9 @@
 ---
 # vars file for user_management
+custom_group: devops
+
+users:
+  - username: devuser1
+    fullname: Dev_User_One
+  - username: devuser2
+    fullname: Dev_User_Two
