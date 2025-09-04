@@ -1,0 +1,7 @@
+#Below code is used for group
+---
+- name: Ensure group "{{ custom_group }}" exists
+  group:
+    name: "{{ custom_group }}"
+    state: present
+...

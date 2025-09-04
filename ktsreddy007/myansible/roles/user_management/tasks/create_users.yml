@@ -1,0 +1,23 @@
+#Below playbook helps for user creation and add them to groups
+---
+- name: Include group creation task
+  include_tasks: group.yml
+
+- name: Create user accounts and add to "{{ custom_group }}"
+  user:
+    name: "{{ item.username }}"
+    comment: "{{ item.fullname }}"
+    shell: /bin/bash
+    groups: "{{ custom_group }}"
+    append: yes
+    state: present
+    create_home: yes
+  loop: "{{ users }}"
+
+- name: Set default shell to bash
+  shell: "chsh -s /bin/bash {{ item.username }}"
+  args:
+    warn: false
+  loop: "{{ users }}"
+  when: ansible_facts['os_family'] in ['RedHat', 'Debian']
+...

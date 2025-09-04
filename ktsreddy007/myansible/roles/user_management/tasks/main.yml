@@ -1,16 +1,24 @@
 ---
 # tasks file for user_management
-- block:
-    - name: Calling user creation tasks
-      include_tasks: create_users.yml
-  when: user_action == "create"
+vars_prompt:
+  - name: "user_action"
+    prompt: "What user action do you want to perform? (create/delete/update)"
+    private: no
 
-- block:
-   - name: Calling user deletion tasks
-     include_tasks: delete_users.yml
-  when: user_action == "delete"
+vars_files:
+  - vars/main.yml  # contains `users` and `custom_group`
 
-- block:
-   - name: Calling user update tasks
-     include_tasks: update_users.yml
-  when: user_action == "update"
+tasks:
+  - block:
+      - name: Calling user creation tasks
+        include_tasks: create_users.yml
+    when: user_action == "create"
+  - block:
+      - name: Calling user deletion tasks
+        include_tasks: delete_users.yml
+    when: user_action == "delete"
+  - block:
+      - name: Calling user update tasks
+        include_tasks: update_users.yml
+    when: user_action == "update"
+...

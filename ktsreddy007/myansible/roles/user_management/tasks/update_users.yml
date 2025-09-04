@@ -1,0 +1,7 @@
+---
+- name: Update shell to /bin/zsh for all users
+  user:
+    name: "{{ item.username }}"
+    shell: /bin/zsh
+  loop: "{{ users }}"
+...
